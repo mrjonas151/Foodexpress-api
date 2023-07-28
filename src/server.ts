@@ -16,7 +16,7 @@ app.use( (err: Error, req: Request, res: Response, next: NextFunction) => {
             error: err.message
         });
     }
-
+        //Senao for instancia de erro, retorna status 500
     return res.status(500).json({
         status: 'error',
         message: 'Internal server error'
