@@ -1,12 +1,11 @@
 import { Router } from "express";
 import { CreateUserController } from "./controllers/User/CreateUserController";
-
+import { AuthUserController } from "./controllers/User/AuthUserController";
 const router = Router();
 
 //ROTAS USER
 router.post('/users', new CreateUserController().handle)
 
-router.get('/users', new CreateUserController().teste)
-
+router.post('/session', new AuthUserController().handle) //rota de login
 
 export { router }

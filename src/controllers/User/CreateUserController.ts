@@ -15,10 +15,6 @@ class CreateUserController{
 
         return res.json(user);
     }
-
-    async teste(){
-        return;
-    }
 }
 
 export {CreateUserController};

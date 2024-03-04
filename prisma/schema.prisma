@@ -10,15 +10,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-//Criar uma migration: yarn prisma migrate dev
+//Criar uma migration: yarn prisma migrate dev (cria no BD essas tabelas)
 model User {
-  id String @id @default(uuid())
+  id String @id @default(uuid()) //esse uuid() diz que por padrao é auto increment
   name String
   email String 
   password String 
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
+//mapeando no BD criando a tabela users
   @@map("users")
 }
 
@@ -28,8 +29,8 @@ model Category {
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
-  @@map("categories")
-  products Product[]
+  @@map("categories") //mapeando no id como categorias
+  products Product[]  //uma categoria possui N produtos
 }
 
 model Product {
@@ -41,7 +42,7 @@ model Product {
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
-  category Category @relation(fields: [category_id], references: [id]) 
+  category Category @relation(fields: [category_id], references: [id])  //Fazendo a relacao de foreign key
 
   @@map("products")
   category_id String
@@ -51,9 +52,9 @@ model Product {
 model Order {
   id String @id @default(uuid())
   table Int
-  status Boolean @default(false)
-  draft Boolean @default(true) //so aparece pra cozinha quando o rascunho ficar falso
-  name String?
+  status Boolean @default(false) //ele so vai confirmar o pedido quando ficar true, por isso ele comeca como false
+  draft Boolean @default(true) //so aparece pra cozinha quando o rascunho ficar falso, dai o status vira true e o rascunho vira falso
+  name String?  //esse '?' significa que o nome do cliente será opcional para passar ao garçom
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
@@ -63,7 +64,7 @@ model Order {
 
 model Item {
   id String @id @default(uuid())
-  amount Int 
+  amount Int //Quantidade de itens
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
